@@ -2,9 +2,11 @@ require_relative 'piece'
 
 class Board
 
+  attr_reader :grid
+
   def initialize
     @grid = Array.new(8) {Array.new(8)}
-    # make_starting_grid
+    make_starting_grid
   end
 
   def [](pos)
@@ -35,6 +37,12 @@ class Board
     # need to check above line and update pieces' positions
   end
 
+  def in_bounds?(pos)
+    row, col = pos
+    row.between?(0,7) && col.between?(0,7)
+
+  end
+
   def checkmate?
 
   end
@@ -59,5 +67,7 @@ class Board
   def find_king(color)
 
   end
+
+
 
 end
