@@ -14,13 +14,14 @@ class Display
     board.grid.each_with_index do |row, i|
       row.each_with_index do |square, j|
         square_str = ""
+        square_color = (i + j) % 2 == 0 ? :white : :light_blue
         unless square.nil?
-          square_str = " P "
+          square_str = " P ".colorize(:color => :black, :background => square_color)
         else
-          square_str = "| |"
+          square_str = "   ".colorize(:color => :black, :background => square_color)
         end
         if [i, j] == @cursor.cursor_pos
-          print square_str.colorize(:green)
+          print square_str.colorize(:color => :black, :background => :yellow)
         else
           print square_str
         end

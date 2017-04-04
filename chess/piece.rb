@@ -1,6 +1,7 @@
+
 class Piece
 
-  include SlidingPiece
+  #include SlidingPiece
 
   def to_s
   end
