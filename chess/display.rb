@@ -16,7 +16,7 @@ class Display
         square_str = ""
         square_color = (i + j) % 2 == 0 ? :white : :light_blue
         unless square.nil?
-          square_str = " P ".colorize(:color => :black, :background => square_color)
+          square_str = square.to_s.colorize(:color => :black, :background => square_color)
         else
           square_str = "   ".colorize(:color => :black, :background => square_color)
         end
@@ -38,5 +38,8 @@ if __FILE__ == $PROGRAM_NAME
     display.render
     display.cursor.get_input
     system("clear")
+    board.move_piece!([0,0], [0,1])
+
+
   end
 end

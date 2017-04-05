@@ -1,4 +1,7 @@
 require_relative 'piece'
+require_relative 'rook'
+require_relative 'null_piece'
+require 'singleton'
 
 class Board
 
@@ -7,6 +10,7 @@ class Board
   def initialize
     @grid = Array.new(8) {Array.new(8)}
     make_starting_grid
+
   end
 
   def [](pos)
@@ -40,7 +44,6 @@ class Board
   def in_bounds?(pos)
     row, col = pos
     row.between?(0,7) && col.between?(0,7)
-
   end
 
   def checkmate?
@@ -50,18 +53,37 @@ class Board
   protected
 
   def make_starting_grid
-    2.times do |row|
+    # 2.times do |row|
+    #   8.times do |col|
+    #     @grid[row][col] = Rook.new([row, col], :black, self)
+    #   end
+    # end
+    populate
+
+    (2..5).each do |row|
       8.times do |col|
-        @grid[row][col] = Piece.new
+        @grid[row][col] = NullPiece.instance
       end
     end
 
-    (6..7).each do |row|
-      8.times do |col|
-        @grid[row][col] = Piece.new
-      end
-    end
+    # (6..7).each do |row|
+    #   8.times do |col|
+    #     @grid[row][col] = Rook.new([row, col], :white, self)
+    #   end
+    # end
 
+  end
+
+  def populate
+    row = 0
+    col = 0
+
+    @grid[row][col] = Rook.new([row, col], :white, self)
+    @grid[row][col + 7] = Rook.new([row, col + 7], :white, self)
+
+    row = 7
+    @grid[row][col] = Rook.new([row, col], :black, self)
+    @grid[row][col + 7] = Rook.new([row, col + 7], :black, self)
   end
 
   def find_king(color)
